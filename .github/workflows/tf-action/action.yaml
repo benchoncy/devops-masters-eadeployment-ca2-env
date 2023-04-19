@@ -1,0 +1,27 @@
+---
+name: Terraform
+description: 'Run terraform workflow'
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+    
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+    
+    - name: Init
+      shell: bash
+      run: terraform init
+    
+    - name: Check
+      shell: bash
+      run: terraform fmt -check
+    
+    - name: Plan
+      shell: bash
+      run: terraform plan -input=false -out=tfplan.out
+    
+    - name: Apply
+      shell: bash
+      run: terraform apply -input=false tfplan.out
