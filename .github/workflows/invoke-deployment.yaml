@@ -23,6 +23,8 @@ jobs:
   deploy:
     name: Deployment
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - name: Install hcledit
         run: |

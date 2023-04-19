@@ -1,0 +1,4 @@
+# IaC
+.terraform/
+.env
+tfplan*
