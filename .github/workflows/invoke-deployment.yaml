@@ -22,7 +22,8 @@ jobs:
         run: |
           wget https://github.com/minamijoyo/hcledit/releases/download/v${{ env.HCLEDIT_VERSION }}/hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
           tar -xvzf hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
-          mv ./hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64/hcledit /user/local/bin/hcledit
+          mv ./hcledit /user/local/bin/hcledit
+          rm -r *
         env:
           HCLEDIT_VERSION: 0.2.7
 
