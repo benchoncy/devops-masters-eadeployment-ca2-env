@@ -51,7 +51,7 @@ jobs:
       - name: Run terraform
         uses: ./.github/actions/terraform
       
-      - name: Edit deployment to create new revision
+      - name: Edit deployment to increase traffic to green to 50%
         run: |
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.green '50'
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '50'
@@ -59,7 +59,7 @@ jobs:
       - name: Run terraform
         uses: ./.github/actions/terraform
       
-      - name: Edit deployment to create new revision
+      - name: Edit deployment to increase traffic to green to 100%
         run: |
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.green '100'
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '0'
