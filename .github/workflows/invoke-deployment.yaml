@@ -21,7 +21,7 @@ jobs:
       - name: Install hcledit
         run: |
           wget https://github.com/minamijoyo/hcledit/releases/download/v${{ env.HCLEDIT_VERSION }}/hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
-          tar -tvf hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
+          tar -xvzf hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
           mv ./hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64/hcledit /user/local/bin/hcledit
         env:
           HCLEDIT_VERSION: 0.2.7
