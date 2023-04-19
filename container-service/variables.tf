@@ -1,5 +1,5 @@
 variable "init" {
-  type = bool
+  type    = bool
   default = false
 }
 
@@ -28,62 +28,58 @@ variable "image_tag" {
 }
 
 variable "max_replicas" {
-  type = number
+  type    = number
   default = 1
 }
 
 variable "cpu" {
-  type = number
+  type    = number
   default = 0.25
 }
 
 variable "memory" {
-  type = string
+  type    = string
   default = "0.5Gi"
 }
 
 variable "port" {
-  type = number
+  type    = number
   default = 80
 }
 
 variable "external_ingress" {
-  type = bool
+  type    = bool
   default = false
 }
 
-variable "traffic" {
-  type = map(object({percentage = number}))
-  default = {
-    green = {
-      percentage = 100
-    }
-    blue = {
-      percentage = 0
-    }
-  }
+variable "green" {
+  type = number
+}
+
+variable "blue" {
+  type = number
 }
 
 variable "liveness_probe" {
   type = object({
-    initial_delay = number
-    interval_seconds = number
+    initial_delay           = number
+    interval_seconds        = number
     failure_count_threshold = number
-    path = string
-    port = number
-    transport = string
+    path                    = string
+    port                    = number
+    transport               = string
   })
   default = {
-    initial_delay = 15
-    interval_seconds = 10
+    initial_delay           = 15
+    interval_seconds        = 10
     failure_count_threshold = 5
-    path = "/"
-    port = 80
-    transport = "HTTP"
+    path                    = "/"
+    port                    = 80
+    transport               = "HTTP"
   }
 }
 
 variable "env_vars" {
-  type = map(string)
+  type    = map(string)
   default = {}
 }

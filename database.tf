@@ -1,7 +1,7 @@
 locals {
   cosmosdb_account_name = "cosmos-db-bpcalc"
-  cosmosdb_db_name = "bpcalc-mongo-db"
-  cosmosdb_col_name = "bpcalc-mongo-db"
+  cosmosdb_db_name      = "bpcalc-mongo-db"
+  cosmosdb_col_name     = "bpcalc-mongo-db"
 }
 
 resource "azurerm_cosmosdb_account" "db" {

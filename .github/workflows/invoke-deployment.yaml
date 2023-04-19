@@ -1,0 +1,61 @@
+---
+name: Blue/Green deployment
+
+on:
+  workflow_dispatch:
+    inputs:
+      service_name:
+        required: true
+        type: string
+        description: Name associated with target service
+      tag:
+        required: true
+        type: string
+        description: Container image tag
+
+jobs:
+  deploy:
+    name: Deployment
+    runs-on: ubuntu-latest
+    steps:
+      - name: Install hcledit
+        run: |
+          wget https://github.com/minamijoyo/hcledit/releases/download/v${{ env.HCLEDIT_VERSION }}/hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
+          tar -tvf hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64.tar.gz
+          mv hcledit_${{ env.HCLEDIT_VERSION }}_linux_amd64/hcledit /user/local/bin/hcledit
+        env:
+          HCLEDIT_VERSION: 0.2.7
+
+      - name: Checkout
+        uses: actions/checkout@v3
+      
+      - name: Edit deployment to create new revision
+        run: |
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.image_tag '"${{ inputs.tag }}"'
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.green '0'
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '100'
+      
+      - name: Run terraform
+        uses: ./github/workflows/terraform.yaml
+      
+      - name: Edit deployment to create new revision
+        run: |
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.green '50'
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '50'
+      
+      - name: Run terraform
+        uses: ./github/workflows/terraform.yaml
+      
+      - name: Edit deployment to create new revision
+        run: |
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.green '100'
+          hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '0'
+      
+      - name: Run terraform
+        uses: ./github/workflows/terraform.yaml
+      
+      - name: Commit
+        if: always() # Always commit latest changes, even after failure
+        uses: stefanzweifel/git-auto-commit-action@v4
+        with:
+          commit_message: Automated Change
