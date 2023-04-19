@@ -7,7 +7,7 @@ module "bpcalc-be" {
 
   image_registry = azurerm_container_registry.bpcalc.login_server
   image_name     = "bpapp-be"
-  image_tag      = "sha-cc39725"
+  image_tag      = "sha-ea39216"
 
   max_replicas = 3
   cpu          = 0.25
