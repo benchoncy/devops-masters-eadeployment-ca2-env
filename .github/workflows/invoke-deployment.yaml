@@ -47,7 +47,7 @@ jobs:
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '100'
       
       - name: Run terraform
-        uses: ./github/workflows/tf-action
+        uses: ./.github/actions/terraform
       
       - name: Edit deployment to create new revision
         run: |
@@ -55,7 +55,7 @@ jobs:
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '50'
       
       - name: Run terraform
-        uses: ./github/workflows/tf-action
+        uses: ./.github/actions/terraform
       
       - name: Edit deployment to create new revision
         run: |
@@ -63,7 +63,7 @@ jobs:
           hcledit -u -f ./${{ inputs.service_name }}-service.tf attribute set module.${{ inputs.service_name }}.blue '0'
       
       - name: Run terraform
-        uses: ./github/workflows/tf-action
+        uses: ./.github/actions/terraform
       
       - name: Commit
         if: always() # Always commit latest changes, even after failure

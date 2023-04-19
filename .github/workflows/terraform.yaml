@@ -27,4 +27,4 @@ jobs:
           creds: ${{ secrets.AZURE_CREDENTIALS }}
       
       - name: Run terraform
-        uses: ./github/workflows/tf-action
+        uses: ./.github/actions/terraform
