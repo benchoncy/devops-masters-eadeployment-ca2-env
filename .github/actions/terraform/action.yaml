@@ -15,6 +15,10 @@ runs:
       shell: bash
       run: terraform fmt -check
     
+    - name: Remove resource lock
+      shell: bash
+      run: az lock delete --resource-group eadeployment-ca2 --name terraform-drift-lock
+    
     - name: Plan
       shell: bash
       run: terraform plan -input=false -out=tfplan.out
