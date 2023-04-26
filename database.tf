@@ -14,9 +14,9 @@ resource "azurerm_cosmosdb_account" "db" {
   enable_automatic_failover = true
 
   backup {
-    type = "Periodic"
+    type                = "Periodic"
     interval_in_minutes = 1440 # 24 hours
-    retention_in_hours = 720 # 30 days
+    retention_in_hours  = 720  # 30 days
   }
 
   capabilities {
