@@ -13,6 +13,12 @@ resource "azurerm_cosmosdb_account" "db" {
 
   enable_automatic_failover = true
 
+  backup {
+    type = "Periodic"
+    interval_in_minutes = 1440 # 24 hours
+    retention_in_hours = 720 # 30 days
+  }
+
   capabilities {
     name = "EnableAggregationPipeline"
   }
@@ -69,11 +75,5 @@ resource "azurerm_cosmosdb_mongo_collection" "db" {
   index {
     keys   = ["_id"]
     unique = true
-  }
-
-  backup {
-    type = "Periodic"
-    interval_in_minutes = 1440 # 24 hours
-    retention_in_hours = 720 # 30 days
   }
 }
