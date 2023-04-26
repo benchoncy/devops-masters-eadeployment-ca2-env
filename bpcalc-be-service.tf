@@ -7,15 +7,15 @@ module "bpcalc-be" {
 
   image_registry = azurerm_container_registry.bpcalc.login_server
   image_name     = "bpapp-be"
-  image_tag      = "sha-95a62fd"
+  image_tag      = "sha-1e1d0ba"
 
   max_replicas = 3
   cpu          = 0.25
   memory       = "0.5Gi"
   port         = 8080
 
-  green = 100
-  blue  = 0
+  green = 0
+  blue  = 100
 
   liveness_probe = {
     initial_delay           = 15
